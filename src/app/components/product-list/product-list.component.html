@@ -1,5 +1,24 @@
-<table class="table">
-    <thead>
+<div class="main-content">
+    <div class="section-content section-content-p30">
+    <div class="container-fluid">
+        <div class="row">
+            <div *ngFor="let tempProduct of products" class="col-md-3">
+                <div class="product-box">
+                    <img src="{{tempProduct.imageUrl}}" />
+                    <h1>{{tempProduct.name}}</h1>
+                    <div class="price">{{tempProduct.unitPrice | currency:'EUR'}}</div>
+                    <a href="#" class="primary-btn ">Add to cart</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </div>
+
+</div>
+
+<!-- <table class="table">
+    <thead class="thead-dark">
         <tr>
             <th></th>
             <th>Product Name</th>
@@ -19,7 +38,7 @@
         </tr>
 
     </tbody>
-</table>
+</table> -->
 
 <!-- <p *ngFor="let tempProduct of products">
     {{tempProduct.name}}: {{tempProduct.unitPrice | currency: 'EUR'}}
