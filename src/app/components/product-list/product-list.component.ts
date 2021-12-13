@@ -11,8 +11,13 @@ import { ProductService } from 'src/app/services/product.service';
 export class ProductListComponent implements OnInit {
 
   products!: Product[];
+  thePageNumber: number = 1;
+  thePageSize: number = 10;
+  theTotalElements: number = 0;
   currenCategoryId!: number;
+  previousCategoryId: number = 1;
   searchMode!: boolean;
+  previousKeyword!: string;
 
   constructor(private productService: ProductService,
     private route: ActivatedRoute) { }
@@ -36,11 +41,18 @@ export class ProductListComponent implements OnInit {
 
   handleSearchProducts() {
     const theKeyword: string = String(this.route.snapshot.paramMap.get('keyword'));
-    this.productService.searchProducts(theKeyword).subscribe(
-      (data: any) => {
-        this.products = data;
-      }
-    )
+
+    if(this.previousKeyword != theKeyword){
+      this.thePageNumber = 1;
+    }
+
+    this.previousKeyword = theKeyword;
+
+
+    this.productService.searchProductsPaginate(this.thePageNumber - 1,
+      this.thePageSize,
+      theKeyword)
+      .subscribe(this.processResult())
   }
 
   handleListProducts() {
@@ -51,11 +63,31 @@ export class ProductListComponent implements OnInit {
       this.currenCategoryId = 1;
     }
 
-    this.productService.getProductList(this.currenCategoryId).subscribe(
-      (data: any) => {
-        this.products = data;
-      }
-    )
+    if(this.previousCategoryId != this.currenCategoryId){
+      this.thePageNumber = 1;
+    }
+
+    this.previousCategoryId = this.currenCategoryId;
+
+    this.productService.getProductListPaginate(this.thePageNumber - 1,
+      this.thePageSize,
+      this.currenCategoryId)
+      .subscribe(this.processResult())
+  }
+
+  private processResult() {
+    return (data: any) => {
+      this.products = data._embedded.products;
+      this.thePageNumber = data.page.number + 1;
+      this.thePageSize = data.page.size;
+      this.theTotalElements = data.page.totalElements;
+    };
+  }
+  updatePageSize(pageSizeTarget : HTMLInputElement){
+
+    this.thePageSize = Number(pageSizeTarget.value);
+    this.thePageNumber =1;
+    this.listProducts();
   }
 
 }
