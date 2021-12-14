@@ -1,0 +1,64 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div *ngIf="cartItems.length > 0">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th width="25%">Product Image</th>
+                        <th width="50%">Product Details</th>
+                        <th scope="col">Product Summary</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let tempCartItem of cartItems">
+                        <td>
+                            <img src="{{ tempCartItem.imageUrl }}" class="img-responsive" />
+                        </td>
+                        <td>
+                            <p>{{tempCartItem.name}}</p>
+                            <p>{{tempCartItem.unitPrice | currency: 'EUR' }}</p>
+                        </td>
+                        <td>
+                            <div class="items">
+                                <label>Quantity:</label>
+
+                                <div class="row no-gutters">
+                                    <div class="col">
+                                        <button (click)="decerimentQuantity(tempCartItem)"
+                                            class="btn btn-primary btn-sm">
+                                            <i class="fas fa-minus"></i>
+                                        </button>
+                                    </div>
+                                    <div class="col ml-4 mr-2">
+                                        {{ tempCartItem.quantity }}
+                                    </div>
+                                    <div class="col">
+                                        <button (click)="incerementQuantity(tempCartItem)"
+                                            class="btn btn-primary btn-sm">
+                                            <i class="fas fa-plus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                <!-- <button (click)="remove(tempCartItem)"
+                                            class="btn btn-primary btn-sm">
+                                            Remove
+                                        </button> -->
+                                    </div>
+                                <p>Subtotal: {{ tempCartItem.quantity * tempCartItem.unitPrice }}</p>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"></td>
+                        <td style="font-weight: bold;">
+                            <p>Total Quantity: {{totalQuantity}}</p>
+                            <p>Total Price: {{totalPrice | currency: 'EUR'}}</p>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
