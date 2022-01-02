@@ -134,7 +134,12 @@
                         <div class="col-md-2"><label>Card Type</label></div>
                         <div class="col-md-5">
                             <div class="input-space">
-                                <input formControlName="cardType" type="text">
+                                <select formControlName="cardType">
+                                    <option>iDeal</option>
+                                    <option>PayPal</option>
+                                    <option>Visa</option>
+                                    <option>Mastercard</option>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -166,7 +171,11 @@
                         <div class="col-md-2"><label>Expiration Month</label></div>
                         <div class="col-md-5">
                             <div class="input-space">
-                                <input formControlName="expirationMonth" type="text">
+                                <select formControlName="expirationMonth">
+                                    <option *ngFor=" let month of creditCardMonth">
+                                        {{month}}
+                                    </option>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -174,17 +183,23 @@
                         <div class="col-md-2"><label>Expiration Year</label></div>
                         <div class="col-md-5">
                             <div class="input-space">
-                                <input formControlName="expirationYear" type="text">
+                                <select formControlName="expirationYear">
+                                    <option *ngFor="let year of creditCardYear">
+                                        {{year}}
+                                    </option>
+                                </select>
                             </div>
                         </div>
                     </div>
                 </div>
+
 
                 <div class="form-area">
                     <h3>Review Order Summary</h3>
                     <p>Total Quantity: {{totalQuantity}}</p>
                     <p>Total Price: {{totalPrice}}</p>
                 </div>
+
                 <div class="text-center">
                     <button type="submit" class="btn btn-info">Purchase</button>
                 </div>
