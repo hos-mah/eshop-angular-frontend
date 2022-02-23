@@ -85,7 +85,7 @@
                 <div class="col-md-5">
                     <div class="input-space">
                         <select formControlName="state">
-                            <option *ngFor="let state of shippingAdressStates">
+                            <option *ngFor="let state of shippingAdressStates" [ngValue]="state">
                                 {{state.name}}
                             </option>
                         </select>
@@ -181,7 +181,7 @@
                 <div class="col-md-5">
                     <div class="input-space">
                         <select formControlName="state">
-                            <option *ngFor="let state of billingAdressStates">
+                            <option *ngFor="let state of billingAdressStates" [ngValue]="state">
                                 {{state.name}}
                             </option>
                         </select>

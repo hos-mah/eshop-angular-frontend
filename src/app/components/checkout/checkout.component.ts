@@ -159,16 +159,16 @@ export class CheckoutComponent implements OnInit {
     //populate purchase: shipping address
     purchase.shippingAddress = this.checkoutFormGroup.controls['shippingAddress'].value;
     const shippingCountry: Country = JSON.parse(JSON.stringify(purchase.shippingAddress?.country));
-    // const shippingState: State = JSON.parse(JSON.stringify(purchase.shippingAddress?.state));
+    const shippingState: State = JSON.parse(JSON.stringify(purchase.shippingAddress?.state));
     purchase.shippingAddress!.country = shippingCountry?.name;
-    // purchase.shippingAddress!.state = shippingState?.name;
+    purchase.shippingAddress!.state = shippingState?.name;
 
     //populate purchase: billing address
     purchase.billingAddress = this.checkoutFormGroup.controls['billingAddress'].value;
     const billingCountry: Country = JSON.parse(JSON.stringify(purchase.billingAddress?.country));
-    // const billingState: State = JSON.parse(JSON.stringify(purchase.billingAddress?.state));
+    const billingState: State = JSON.parse(JSON.stringify(purchase.billingAddress?.state));
     purchase.billingAddress!.country = billingCountry?.name;
-    // purchase.billingAddress!.state = billingState?.name;
+    purchase.billingAddress!.state = billingState?.name;
 
     //populate purchase: order and items
     purchase.order = order;
@@ -199,12 +199,12 @@ export class CheckoutComponent implements OnInit {
   }
 
   copyAddress(event: Event) {
-    if (event.target!) {
+    if ((event.target as HTMLInputElement).checked) {
       this.checkoutFormGroup.controls.billingAddress.setValue(
         this.checkoutFormGroup.controls.shippingAddress.value
       );
       this.billingAdressStates = this.shippingAdressStates;
-      this.checkoutFormGroup.controls.billingAddress.value.state = this.checkoutFormGroup.controls.shippingAddress.value.state;
+      
 
     } else {
       this.checkoutFormGroup.controls.billingAddress.reset();
