@@ -42,7 +42,7 @@ export class CheckoutComponent implements OnInit {
         firstName: new FormControl('', [Validators.required, Validators.minLength(2), CheckoutFormValidators.notOnlyWhitespace]),
         lastName: new FormControl('', [Validators.required, Validators.minLength(2), CheckoutFormValidators.notOnlyWhitespace]),
         // Validators.email doesn't check domain (.com)
-        email: new FormControl('', [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')]),
+        email: new FormControl('', [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$')]),
       }),
       shippingAddress: this.formBuilder.group({
         street: new FormControl('', [Validators.required, Validators.minLength(2), CheckoutFormValidators.notOnlyWhitespace]),
@@ -105,12 +105,12 @@ export class CheckoutComponent implements OnInit {
     );
   }
 
+  //customer
   get firstName() { return this.checkoutFormGroup.get('customer.firstName'); }
-
   get lastName() { return this.checkoutFormGroup.get('customer.lastName'); }
-
   get email() { return this.checkoutFormGroup.get('customer.email'); }
 
+  //shippingAddress
   get shippingAddressStreet() { return this.checkoutFormGroup.get('shippingAddress.street'); }
   get shippingAddressCity() { return this.checkoutFormGroup.get('shippingAddress.city'); }
   get shippingAddressState() { return this.checkoutFormGroup.get('shippingAddress.state'); }
@@ -125,7 +125,7 @@ export class CheckoutComponent implements OnInit {
   get billingAddressPostCode() { return this.checkoutFormGroup.get('billingAddress.zipCode'); }
 
   //creditCard
-  get creditCardype() { return this.checkoutFormGroup.get('creditCard.cardType'); }
+  get creditCardType() { return this.checkoutFormGroup.get('creditCard.cardType'); }
   get creditCardNameOnCard() { return this.checkoutFormGroup.get('creditCard.nameOnCard'); }
   get creditCardNumber() { return this.checkoutFormGroup.get('creditCard.cardNumber'); }
   get creditCardSecurityCode() { return this.checkoutFormGroup.get('creditCard.securityCode'); }
@@ -134,6 +134,7 @@ export class CheckoutComponent implements OnInit {
 
   onSubmit() {
     console.log("Handling Submit: ")
+    // if any field is invalid trigger the display of error messages for all the invalid fields 
     if (this.checkoutFormGroup.invalid) {
       this.checkoutFormGroup.markAllAsTouched();
       return;
