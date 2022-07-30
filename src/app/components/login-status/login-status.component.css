@@ -1,3 +1,8 @@
+/*
+  Copy from styles.css -> .au-btn-submit
+  rename to .security-btn-submit
+  change border
+*/
 .security-btn-submit{
     position:relative;
     right:0px;
@@ -10,6 +15,10 @@
     background:#205b8d
 }
 
+/*
+  Copy from styles.css -> .form-header
+  rename to .login-status-header
+*/
 .login-status-header{
     display:-webkit-box;
     display:-webkit-flex;
@@ -18,6 +27,11 @@
     display:flex
 }
 
+/*
+  Copy from styles.css -> .au-input
+  rename to ..login-status-user-info
+  remove solid, font-size, color
+*/
 
 .login-status-user-info{
     line-height:43px;

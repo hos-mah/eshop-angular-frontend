@@ -19,6 +19,7 @@ import { OktaAuthModule, OKTA_CONFIG, OktaCallbackComponent } from '@okta/okta-a
 import { OktaAuth } from '@okta/okta-auth-js';
 
 import appConfig from './config/app-config';
+
 const oktaAuthConfig = Object.assign({
   onAuthRequired: (injector: { get: (arg0: typeof Router) => any; }) =>{
     const router = injector.get(Router);
