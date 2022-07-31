@@ -3,15 +3,16 @@
   rename to .security-btn-submit
   change border
 */
-.security-btn-submit{
+.security-btn{
     position:relative;
-    right:0px;
-    min-width:95px;
+    right:10px;
+    min-width:85px;
     color:#fff;
     border:10px solid #205b8d;
     -webkit-border-radius:3px;
     -moz-border-radius:3px;
-    border-radius:43;
+    border-radius:43px;
+    margin-left: 5px;
     background:#205b8d
 }
 

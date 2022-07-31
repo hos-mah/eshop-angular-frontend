@@ -15,19 +15,22 @@ import { CheckoutComponent } from './components/checkout/checkout.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './components/login/login.component';
 import { LoginStatusComponent } from './components/login-status/login-status.component';
-import { OktaAuthModule, OKTA_CONFIG, OktaCallbackComponent } from '@okta/okta-angular';
+import { OktaAuthModule, OKTA_CONFIG, OktaCallbackComponent, OktaAuthGuard } from '@okta/okta-angular';
 import { OktaAuth } from '@okta/okta-auth-js';
 
 import appConfig from './config/app-config';
+import { MembersPageComponent } from './components/members-page/members-page.component';
 
 const oktaAuthConfig = Object.assign({
-  onAuthRequired: (injector: { get: (arg0: typeof Router) => any; }) =>{
+  onAuthRequired: (oktaAuth: { get: (arg0: typeof OktaAuthGuard) => any; }, 
+                   injector: { get: (arg0: typeof Router) => any; }) =>{
     const router = injector.get(Router);
     router.navigate(['/login']);
   }
 }, appConfig.oidc);
 
 const routes: Routes =[ 
+  {path: 'members', component: MembersPageComponent, canActivate: [OktaAuthGuard]}, //canActivate provide route gaurd in angular and OktaAuthGuard is Okta implementation
   {path: 'login/callback', component: OktaCallbackComponent},
   {path: 'login', component: LoginComponent},
   {path: 'checkout', component: CheckoutComponent},
@@ -52,7 +55,8 @@ const routes: Routes =[
     CartDetailsComponent,
     CheckoutComponent,
     LoginComponent,
-    LoginStatusComponent
+    LoginStatusComponent,
+    MembersPageComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
