@@ -8,10 +8,29 @@ import { CartItem } from '../common/cart-item';
 export class CartService {
 
   cartItems: CartItem[] = [];
+  
   // Subject<T> extends Observable<T>
   totalPrice: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   totalQuantity: BehaviorSubject<number> = new BehaviorSubject<number>(0);
-  constructor() { }
+  
+  // storage: Storage = sessionStorage;
+  storage: Storage = localStorage;
+
+  constructor() { 
+    // read data from storage
+    const maybeItems: any = this.storage.getItem('cartItems');
+    console.log(maybeItems);
+    console.log(this.cartItems);
+    let data = JSON.parse(maybeItems != null ? maybeItems : '' );
+
+    if(data != ''){
+      this.cartItems=data;
+      
+      // compute data based on the data that is read from storage
+      this.computeCartTotals();
+    }
+
+  }
 
   addToCart(theCartItem: CartItem){
 
@@ -60,6 +79,9 @@ export class CartService {
     this.totalQuantity.next(totalQuantityValue);
 
     this.logCartData(totalPriceValue, totalQuantityValue);
+
+    // persist cart data
+    this.persistCartItems();
   }
 
   logCartData(totalPriceValue: number, totalQuantityValue: number){
@@ -91,6 +113,10 @@ export class CartService {
       this.cartItems.splice(itemIndex,1);
       this.computeCartTotals();
     }
+  }
+
+  persistCartItems() {
+    this.storage.setItem('cartItems', JSON.stringify(this.cartItems))
   }
 
 }
