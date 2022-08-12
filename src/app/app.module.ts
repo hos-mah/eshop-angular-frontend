@@ -20,6 +20,7 @@ import { OktaAuth } from '@okta/okta-auth-js';
 
 import appConfig from './config/app-config';
 import { MembersPageComponent } from './components/members-page/members-page.component';
+import { OrderHistoryComponent } from './components/order-history/order-history.component';
 
 const oktaAuthConfig = Object.assign({
   onAuthRequired: (oktaAuth: { get: (arg0: typeof OktaAuthGuard) => any; }, 
@@ -30,6 +31,7 @@ const oktaAuthConfig = Object.assign({
 }, appConfig.oidc);
 
 const routes: Routes =[ 
+  {path: 'order-history', component: OrderHistoryComponent, canActivate: [OktaAuthGuard]}, 
   {path: 'members', component: MembersPageComponent, canActivate: [OktaAuthGuard]}, //canActivate provide route gaurd in angular and OktaAuthGuard is Okta implementation
   {path: 'login/callback', component: OktaCallbackComponent},
   {path: 'login', component: LoginComponent},
@@ -56,7 +58,8 @@ const routes: Routes =[
     CheckoutComponent,
     LoginComponent,
     LoginStatusComponent,
-    MembersPageComponent
+    MembersPageComponent,
+    OrderHistoryComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

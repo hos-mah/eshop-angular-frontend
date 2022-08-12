@@ -24,11 +24,12 @@ export class CheckoutComponent implements OnInit {
   billingAdressStates: State[] = [];
   totalPrice: number = 0;
   totalQuantity: number = 0;
-
+  
   creditCardMonths: number[] = []
   creditCardYears: number[] = []
-
+  
   countries: Country[] = [];
+  storage: Storage = sessionStorage;
 
   constructor(public formBuilder: FormBuilder,
     public shopFormService: ShopFormService,
@@ -37,12 +38,16 @@ export class CheckoutComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
+
+
+    const theEmail = JSON.parse(this.storage.getItem('userEmail')!);
+
     this.checkoutFormGroup = this.formBuilder.group({
       customer: this.formBuilder.group({
         firstName: new FormControl('', [Validators.required, Validators.minLength(2), CheckoutFormValidators.notOnlyWhitespace]),
         lastName: new FormControl('', [Validators.required, Validators.minLength(2), CheckoutFormValidators.notOnlyWhitespace]),
         // Validators.email doesn't check domain (.com)
-        email: new FormControl('', [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$')]),
+        email: new FormControl(theEmail, [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$')]),
       }),
       shippingAddress: this.formBuilder.group({
         street: new FormControl('', [Validators.required, Validators.minLength(2), CheckoutFormValidators.notOnlyWhitespace]),
