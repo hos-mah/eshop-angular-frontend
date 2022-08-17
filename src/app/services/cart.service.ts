@@ -18,11 +18,13 @@ export class CartService {
 
   constructor() { 
     
+    // read data from storage
+    const maybeItems: any = this.storage.getItem('cartItems');
+
     console.log('this.storage.length');
     console.log(this.storage.length );
-    if(this.storage.length >0){
-      // read data from storage
-      const maybeItems: any = this.storage.getItem('cartItems');
+    if(this.storage.length >0 && maybeItems != null){
+      
       console.log(maybeItems);
       console.log(this.cartItems);
       let data = JSON.parse(maybeItems != null ? maybeItems : '' );

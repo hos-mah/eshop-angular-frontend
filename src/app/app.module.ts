@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { ProductService } from './services/product.service';
@@ -21,6 +21,7 @@ import { OktaAuth } from '@okta/okta-auth-js';
 import appConfig from './config/app-config';
 import { MembersPageComponent } from './components/members-page/members-page.component';
 import { OrderHistoryComponent } from './components/order-history/order-history.component';
+import { AuthInterceptorService } from './services/auth-interceptor.service';
 
 const oktaAuthConfig = Object.assign({
   onAuthRequired: (oktaAuth: { get: (arg0: typeof OktaAuthGuard) => any; }, 
@@ -72,6 +73,10 @@ const routes: Routes =[
   providers: [ProductService, { 
     provide: OKTA_CONFIG, 
     useValue: oktaAuthConfig 
+  },{
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptorService,
+    multi: true
   }],
   bootstrap: [AppComponent]
 })
