@@ -116,8 +116,6 @@ export class CartService {
 
   remove(theCartItem: CartItem){
     const itemIndex = this.cartItems.indexOf(theCartItem, 0);
-    console.log('itemIndex');
-    console.log(itemIndex);
 
     if(itemIndex>-1){
       this.cartItems.splice(itemIndex,1);
