@@ -42,6 +42,8 @@ export class CartService {
 
     let alreadyExistInCart: boolean = false;
     let existingCartItem: CartItem | undefined = undefined;
+    console.log('this.cartItems.length');
+    console.log(this.cartItems.length);
 
     if(this.cartItems.length > 0){
       
@@ -113,7 +115,9 @@ export class CartService {
   }
 
   remove(theCartItem: CartItem){
-    const itemIndex = this.cartItems.findIndex( tempCartItem => tempCartItem.id = theCartItem.id);
+    const itemIndex = this.cartItems.indexOf(theCartItem, 0);
+    console.log('itemIndex');
+    console.log(itemIndex);
 
     if(itemIndex>-1){
       this.cartItems.splice(itemIndex,1);
