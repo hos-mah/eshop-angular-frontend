@@ -4,15 +4,16 @@ import { Observable } from 'rxjs';
 import { Product } from '../common/product';
 import { map } from 'rxjs/operators';
 import { ProductCategory } from '../common/product-category';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
 
-  private baseUrl = 'http://localhost:8083/api/products'
+  private baseUrl = environment.eshopBaseUrl + '/products'
 
-  private categoryUrl = 'http://localhost:8083/api/product-category'
+  private categoryUrl = environment.eshopBaseUrl + '/product-category'
 
   constructor(private httpClient: HttpClient) { }
 
@@ -46,10 +47,10 @@ export class ProductService {
 
 
   searchProductsPaginate(thePage: number,
-                         thePageSize: number,
-                         keyword: string): Observable<GetResponseProduct> {
+    thePageSize: number,
+    keyword: string): Observable<GetResponseProduct> {
     const searchUrl = `${this.baseUrl}/search/findByNameContainingIgnoreCase?name=${keyword}`
-                    + `&page=${thePage}&size=${thePageSize}`;
+      + `&page=${thePage}&size=${thePageSize}`;
     return this.httpClient.get<GetResponseProduct>(searchUrl);
 
   }
@@ -64,7 +65,8 @@ export class ProductService {
     thePageSize: number,
     theCategoryId: number): Observable<GetResponseProduct> {
     const url = `${this.baseUrl}/search/findByCategoryId?id=${theCategoryId}`
-              + `&page=${thePage}&size=${thePageSize}`;
+      + `&page=${thePage}&size=${thePageSize}`;
+      console.log(`Getting products from: ${url}`);
     return this.httpClient.get<GetResponseProduct>(url);
   }
 }
