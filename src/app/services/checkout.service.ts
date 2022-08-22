@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class CheckoutService {
-  private purchaseUrl = environment.eshopBaseUrl + '/purchase';
+  private purchaseUrl = environment.eshopBaseUrl + '/checkout/purchase';
 
   constructor(private httpClient: HttpClient) { }
 
